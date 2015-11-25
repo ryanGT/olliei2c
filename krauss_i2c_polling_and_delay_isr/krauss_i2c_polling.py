@@ -20,6 +20,7 @@ sendindex_list = []
 allbytes = []
 ms = 1.0/1000
 sleep_time = 0.2*ms
+echo_responses = []
 
 for i in ilist:
     #bus.write_byte(SLAVE_ADDRESS, i)
@@ -36,12 +37,15 @@ for i in ilist:
     vlsb = bus.read_byte(SLAVE_ADDRESS)
     vmsb = bus.read_byte(SLAVE_ADDRESS)
     cursend = bus.read_byte(SLAVE_ADDRESS)
-    currow = [testbyte, nlsb, nmsb, cursend, poll_count]
+    currow = [testbyte, nlsb, nmsb, cursend, vlsb, vmsb, poll_count]
     allbytes.append(currow)
     sendindex_list.append(cursend)
     n_int = serial_utils.TwoIntBytesToInt(nmsb, nlsb)
     n_echo = serial_utils.Clean_Twos(n_int)
+    echo_int = serial_utils.TwoIntBytesToInt(vmsb,vlsb)
+    echo_ans = serial_utils.Clean_Twos(echo_int)
     responses.append(n_echo)
+    echo_responses.append(echo_ans)
     
 t2 = time.time()
 
