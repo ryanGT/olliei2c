@@ -4,6 +4,7 @@
 
 import smbus
 import time
+import serial_utils
 
 bus = smbus.SMBus(1)
 SLAVE_ADDRESS = 0x04
