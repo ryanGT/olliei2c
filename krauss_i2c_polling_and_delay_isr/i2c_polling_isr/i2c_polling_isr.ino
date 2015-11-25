@@ -24,7 +24,8 @@ int nIn;
 int nISR;
 int v1;
 int v_out;
-unsigned char nlsb, nmsb, vlsb, vmsb;
+int echo;
+unsigned char nlsb, nmsb, vlsb, vmsb, elsb, emsb;
 
 int isrstate=0;
 int case_in;
@@ -33,6 +34,7 @@ int fresh_in;
 int fresh_out;
 bool send_ser;
 int sendindex;
+int readindex;
 
 uint8_t inbuffer [bufferlen];
 int in_x = 0;
@@ -48,6 +50,7 @@ void setup() {
     fresh_in = 0;
     fresh=0;
     sendindex=0;
+    readindex=0;
     number = 7;
     //---------------------------
     //Timer ISR stuff
@@ -99,7 +102,7 @@ void setup() {
     Wire.onRequest(sendData);
 
     sei();
-    Serial.println("i2c krauss loop 11/24/15");
+    Serial.println("i2c krauss v0.2 loop 2+4 bytes 11/25/15");
 }
 
 /* void read_i2c_buffer() { */
@@ -148,7 +151,7 @@ void setup() {
 void loop() {
     int i;
 
-    delay(100);
+    delay(1);
 
     if (fresh_in > 0){
         //new data has arrived
@@ -274,11 +277,11 @@ void sendData(){
       /* outbuffer[5] = 0; */
       //============================
       // this was working one byte at a time
-      outbuffer[3] = sendindex;
+      outbuffer[5] = sendindex;
 
       Wire.write(outbuffer[sendindex]);
       sendindex++;
-      if ( sendindex > 3 ){
+      if ( sendindex > 5 ){
       	fresh=0;
       	sendindex=0;
       }
@@ -314,6 +317,13 @@ ISR(TIMER1_COMPA_vect)
   outbuffer[1] = nlsb;
   nmsb = getsecondbyte(nISR);
   outbuffer[2] = nmsb;
+  nIn = reassemblebytes(inbuffer[1], inbuffer[2]);
+  echo = nIn*nIn;
+  elsb = (unsigned char)echo;
+  outbuffer[3] = elsb;
+  emsb = getsecondbyte(echo);
+  outbuffer[4] = emsb;
+
   //analogWrite(pwmA, v1);
   //v_out = v1*v1;
   //fresh_out = 1;

@@ -29,8 +29,12 @@ for i in ilist:
         poll_count += 1
         time.sleep(sleep_time)#asking for 1/10th of millisecond
         testbyte = bus.read_byte(SLAVE_ADDRESS)
+    imsb, ilsb = serial_utils.two_bytes(i)
+    bus.write_i2c_block_data(SLAVE_ADDRESS, 1, [imsb,ilsb])
     nlsb = bus.read_byte(SLAVE_ADDRESS)
     nmsb = bus.read_byte(SLAVE_ADDRESS)
+    vlsb = bus.read_byte(SLAVE_ADDRESS)
+    vmsb = bus.read_byte(SLAVE_ADDRESS)
     cursend = bus.read_byte(SLAVE_ADDRESS)
     currow = [testbyte, nlsb, nmsb, cursend, poll_count]
     allbytes.append(currow)
