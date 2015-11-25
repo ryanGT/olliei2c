@@ -20,7 +20,7 @@ void setup()
     Wire.onReceive(read_single_byte);
     Wire.onRequest(echo_single_byte);
     Serial.begin(115200);
-    Serial.print("I2C Single Byte\n");
+    Serial.print("I2C Single Byte testing 400KHz\n");
     	
     // initialize digital pin 7 as an output.
 	DDRD |= _BV(PD7);
