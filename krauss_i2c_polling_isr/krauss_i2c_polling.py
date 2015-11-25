@@ -5,6 +5,7 @@
 import smbus
 import time
 import serial_utils
+from numpy import *
 
 bus = smbus.SMBus(1)
 SLAVE_ADDRESS = 0x04
@@ -13,7 +14,7 @@ n = 100
 
 t1 = time.time()
 responses = []
-ilist = range(1,10)
+ilist = range(1,n)
 testbyte = 0
 sendindex_list = []
 allbytes = []
@@ -43,3 +44,10 @@ print 'dt = %0.4g' % dt
 N = len(ilist)
 tpl = dt/N
 print('time per loop = %0.4g' % tpl)
+
+test_r = array(responses)-responses[1]+1
+test_diff = test_r-arange(n-1)
+
+print('='*30)
+print('test_diff = ')
+print(str(test_diff))
