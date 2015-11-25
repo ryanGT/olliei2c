@@ -8,9 +8,6 @@ import smbus
 import pigpio as p
 import time
 
-square.append(p.pulse(1<<GPIO, 0, 0.5))
-square.append(p.pulse(0, 1<<GPIO, 0.5))
-
 pi = p.pi()
 pi.set_mode(23, p.INPUT)
 
