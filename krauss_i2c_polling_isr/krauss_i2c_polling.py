@@ -9,7 +9,7 @@ import serial_utils
 bus = smbus.SMBus(1)
 SLAVE_ADDRESS = 0x04
 
-n = 10
+n = 100
 
 t1 = time.time()
 responses = []
