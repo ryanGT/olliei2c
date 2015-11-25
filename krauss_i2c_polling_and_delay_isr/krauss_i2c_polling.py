@@ -19,7 +19,7 @@ testbyte = 0
 sendindex_list = []
 allbytes = []
 ms = 1.0/1000
-sleep_time = 0.1*ms
+sleep_time = 0.2*ms
 
 for i in ilist:
     #bus.write_byte(SLAVE_ADDRESS, i)
