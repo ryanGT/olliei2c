@@ -44,7 +44,7 @@ for i in ilist:
         vlsb = bus.read_byte(SLAVE_ADDRESS)
         vmsb = bus.read_byte(SLAVE_ADDRESS)
         cursend = bus.read_byte(SLAVE_ADDRESS)
-        currow = [testbyte, nlsb, nmsb, cursend, vlsb, vmsb, poll_count]
+        currow = [testbyte, nlsb, nmsb, cursend, vlsb, vmsb]#, poll_count]
         allbytes.append(currow)
         sendindex_list.append(cursend)
         n_int = serial_utils.TwoIntBytesToInt(nmsb, nlsb)
