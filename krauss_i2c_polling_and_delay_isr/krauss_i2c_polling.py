@@ -1,6 +1,7 @@
 #~ Ollie Langhorst
 #~ Robotics Research under Dr. Krauss
 #~ November 23 2015
+from matplotlib.pyplot import *
 
 import smbus
 import time
@@ -62,3 +63,10 @@ test_diff = test_r-arange(n-1)
 print('='*30)
 print('test_diff = ')
 print(str(test_diff))
+
+figure(1)
+clf()
+ilist
+plot(ilist, echo_responses,'ro')
+
+show()
