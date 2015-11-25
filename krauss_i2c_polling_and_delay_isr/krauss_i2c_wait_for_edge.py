@@ -5,11 +5,11 @@ from matplotlib.pyplot import *
 
 import smbus
 
-import pigpio as p
+import pigpio
 import time
 
-pi = p.pi()
-pi.set_mode(23, p.INPUT)
+mypi = pigpio.pi()
+mypi.set_mode(23, pigpio.INPUT)
 
 import time
 import serial_utils
@@ -34,7 +34,7 @@ for i in ilist:
     #bus.write_byte(SLAVE_ADDRESS, i)
     #testbyte = bus.read_byte(SLAVE_ADDRESS)
     #poll_count = 0
-    if pi.wait_for_edge(23, pigpio.RISING_EDGE, 5.0):
+    if mypi.wait_for_edge(23, pigpio.RISING_EDGE, 5.0):
         # Arduino Timer ISR just happened
         testbyte = bus.read_byte(SLAVE_ADDRESS)
         imsb, ilsb = serial_utils.two_bytes(i)
