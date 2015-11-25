@@ -24,6 +24,7 @@ int nIn;
 int nISR;
 int v1;
 int v_out;
+unsigned char nlsb, nmsb, vlsb, vmsb;
 
 int isrstate=0;
 int case_in;
@@ -257,19 +258,11 @@ void receiveData(int byteCount){
 /* } */
 
 void sendData(){
-    unsigned char nlsb, nmsb, vlsb, vmsb;
-
     if (fresh == 0){
       Wire.write(0);
     }
     else{
       digitalWrite(sendPin, HIGH);
-      outbuffer[0] = 1;
-      nlsb = (unsigned char)nISR;
-      outbuffer[1] = nlsb;
-      nmsb = getsecondbyte(nISR);
-      outbuffer[2] = nmsb;
-      outbuffer[3] = sendindex;
       /* vlsb = (unsigned char)v_out; */
       /* vmsb = getsecondbyte(v_out); */
       /* outbuffer[1] = vmsb; */
@@ -279,12 +272,21 @@ void sendData(){
       /* outbuffer[4] = 10; */
     
       /* outbuffer[5] = 0; */
+      //============================
+      // this was working one byte at a time
+      /* outbuffer[3] = sendindex; */
 
-      Wire.write(outbuffer[sendindex]);
-      sendindex++;
-      if ( sendindex > 3 ){
-	fresh=0;
-	sendindex=0;
+      /* Wire.write(outbuffer[sendindex]); */
+      /* sendindex++; */
+      /* if ( sendindex > 3 ){ */
+      /* 	fresh=0; */
+      /* 	sendindex=0; */
+      /* } */
+      //============================
+      
+      // trying block send
+      for (int j=0; j<4; j++){
+	Wire.write(outbuffer[j]);
       }
       digitalWrite(sendPin, LOW);
     }
@@ -307,6 +309,11 @@ ISR(TIMER1_COMPA_vect)
   fresh=1;
   sendindex=0;
   nISR++;
+  outbuffer[0] = 1;
+  nlsb = (unsigned char)nISR;
+  outbuffer[1] = nlsb;
+  nmsb = getsecondbyte(nISR);
+  outbuffer[2] = nmsb;
   //analogWrite(pwmA, v1);
   //v_out = v1*v1;
   //fresh_out = 1;
