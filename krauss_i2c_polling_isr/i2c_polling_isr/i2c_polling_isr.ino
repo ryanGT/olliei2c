@@ -283,6 +283,7 @@ void sendData(){
       Wire.write(outbuffer[sendindex]);
       sendindex++;
       if ( sendindex > 3 ){
+	fresh=0;
 	sendindex=0;
       }
       digitalWrite(sendPin, LOW);
