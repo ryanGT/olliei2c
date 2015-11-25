@@ -18,6 +18,8 @@ ilist = range(1,n)
 testbyte = 0
 sendindex_list = []
 allbytes = []
+ms = 1.0/1000
+sleep_time = 0.1*ms
 
 for i in ilist:
     #bus.write_byte(SLAVE_ADDRESS, i)
@@ -25,6 +27,7 @@ for i in ilist:
     poll_count = 0
     while (testbyte != 1):
         poll_count += 1
+        time.sleep(sleep_time)#asking for 1/10th of millisecond
         testbyte = bus.read_byte(SLAVE_ADDRESS)
     nlsb = bus.read_byte(SLAVE_ADDRESS)
     nmsb = bus.read_byte(SLAVE_ADDRESS)

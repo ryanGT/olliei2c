@@ -274,20 +274,20 @@ void sendData(){
       /* outbuffer[5] = 0; */
       //============================
       // this was working one byte at a time
-      /* outbuffer[3] = sendindex; */
+      outbuffer[3] = sendindex;
 
-      /* Wire.write(outbuffer[sendindex]); */
-      /* sendindex++; */
-      /* if ( sendindex > 3 ){ */
-      /* 	fresh=0; */
-      /* 	sendindex=0; */
-      /* } */
+      Wire.write(outbuffer[sendindex]);
+      sendindex++;
+      if ( sendindex > 3 ){
+      	fresh=0;
+      	sendindex=0;
+      }
       //============================
       
-      // trying block send
-      for (int j=0; j<4; j++){
-	Wire.write(outbuffer[j]);
-      }
+      // trying block send//<-- this doesn't work for now
+      /* for (int j=0; j<4; j++){ */
+      /* 	Wire.write(outbuffer[j]); */
+      /* } */
       digitalWrite(sendPin, LOW);
     }
 }
