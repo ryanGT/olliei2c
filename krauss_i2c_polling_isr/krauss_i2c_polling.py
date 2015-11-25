@@ -16,15 +16,18 @@ responses = []
 ilist = range(1,10)
 testbyte = 0
 sendindex_list = []
+allbytes = []
 
 for i in ilist:
     #bus.write_byte(SLAVE_ADDRESS, i)
     testbyte = bus.read_byte(SLAVE_ADDRESS)
-    while (testbyte == 0):
+    while (testbyte != 1):
         testbyte = bus.read_byte(SLAVE_ADDRESS)
     nlsb = bus.read_byte(SLAVE_ADDRESS)
     nmsb = bus.read_byte(SLAVE_ADDRESS)
     cursend = bus.read_byte(SLAVE_ADDRESS)
+    currow = [testbyte, nlsb, nmsb, cursend]
+    allbytes.append(currow)
     sendindex_list.append(cursend)
     n_int = serial_utils.TwoIntBytesToInt(nmsb, nlsb)
     n_echo = serial_utils.Clean_Twos(n_int)
