@@ -11,6 +11,7 @@ from numpy import *
 #bus = smbus.SMBus(1)
 SLAVE_ADDRESS = 0x04
 
+# the pigpio approach doesn't seem to work at all
 import pigpio
 
 pi = pigpio.pi()
@@ -32,7 +33,7 @@ echo_responses = []
 for i in ilist:
     #bus.write_byte(SLAVE_ADDRESS, i)
     #testbyte = bus.read_byte(SLAVE_ADDRESS)
-    (length, testbyte) = pi.i2c_read_device(handle, 1)
+    (length, testbyte) = pi.i2c_read_device(handle, 1)#<-- hangs here
     poll_count = 0
     while (testbyte != 1):
         poll_count += 1
