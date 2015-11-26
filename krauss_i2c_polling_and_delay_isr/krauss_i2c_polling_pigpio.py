@@ -11,6 +11,8 @@ from numpy import *
 #bus = smbus.SMBus(1)
 SLAVE_ADDRESS = 0x04
 
+import pigpio
+
 pi = pigpio.pi()
 
 handle = pi.i2c_open(1, SLAVE_ADDRESS)
