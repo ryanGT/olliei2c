@@ -33,7 +33,7 @@ for i in ilist:
         testbyte = bus.read_byte(SLAVE_ADDRESS)
     imsb, ilsb = serial_utils.two_bytes(i)
     bus.write_i2c_block_data(SLAVE_ADDRESS, 1, [imsb,ilsb])
-    data = bus.read_i2c_block_data(SLAVE_ADDRESS, 0);
+    data = bus.read_i2c_block_data(SLAVE_ADDRESS, 4)
     nlsb = data[0]
     nmsb = data[1]
     vlsb = data[2]
