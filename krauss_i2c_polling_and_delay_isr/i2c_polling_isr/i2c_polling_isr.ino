@@ -61,7 +61,8 @@ void setup() {
     TCCR1B = 0;     // same for TCCR1B
 
     // set compare match register to desired timer count:
-    OCR1A = 30;
+    //OCR1A = 30;
+    OCR1A = 45;
     //OCR1A = 155;//100 Hz
     //OCR1A = 100;//150ish - seems to work
     //OCR1A = 77;//200 Hz <-- seems very borderline (might be 184 Hz)

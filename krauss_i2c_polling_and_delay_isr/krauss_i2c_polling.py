@@ -57,6 +57,9 @@ N = len(ilist)
 tpl = dt/N
 print('time per loop = %0.4g' % tpl)
 
+fd = 1.0/tpl
+print('digital update frequency = %0.4g Hz' % fd)
+
 test_r = array(responses)-responses[1]+1
 test_diff = test_r-arange(n-1)
 
