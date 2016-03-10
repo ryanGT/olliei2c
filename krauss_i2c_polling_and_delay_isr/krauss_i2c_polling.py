@@ -20,7 +20,7 @@ testbyte = 0
 sendindex_list = []
 allbytes = []
 ms = 1.0/1000
-sleep_time = 0.1*ms
+sleep_time = 0.01*ms
 echo_responses = []
 
 for i in ilist:
