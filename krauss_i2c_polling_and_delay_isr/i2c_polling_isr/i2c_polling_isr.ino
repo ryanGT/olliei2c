@@ -11,7 +11,7 @@
 
 #define isrPin 5
 #define receivePin 7
-#define sendPin 8
+#define sendPin 6
 
 int number = 0;
 int state = 0;
@@ -103,7 +103,7 @@ void setup() {
     Wire.onRequest(sendData);
 
     sei();
-    Serial.println("i2c krauss v0.2 loop 2+4 bytes 11/25/15");
+    Serial.println("i2c krauss v0.2 loop 2+4 bytes 3/11/16");
 }
 
 /* void read_i2c_buffer() { */
@@ -285,6 +285,7 @@ void sendData(){
       if ( sendindex > 5 ){
       	fresh=0;
       	sendindex=0;
+	digitalWrite(sendPin, LOW);
       }
       //============================
       
@@ -292,7 +293,6 @@ void sendData(){
       /* for (int j=0; j<4; j++){ */
       /* 	Wire.write(outbuffer[j]); */
       /* } */
-      digitalWrite(sendPin, LOW);
     }
 }
 
